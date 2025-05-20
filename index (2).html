@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Receive Grievance</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      background: radial-gradient(circle at center, #0c1445, #000000);
+      color: white;
+    }
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    .container {
+      z-index: 1;
+      position: relative;
+      background-color: rgba(0, 0, 50, 0.85);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      width: 400px;
+      margin: 100px auto;
+    }
+    textarea, button {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      font-size: 1em;
+      border: none;
+    }
+    button {
+      background: #4e5d94;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="container">
+    <h2>hello aiswaeya 🖤</h2>
+    <div id="grievanceText">loading grievance...</div>
+    <br>
+    <textarea id="reply" placeholder="type ur response here..."></textarea>
+    <button onclick="sendResponse()">send response</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    function sendResponse() {
+      const res = document.getElementById('reply').value.trim();
+      if (!res) return alert("type something queen");
+      localStorage.setItem("response", res);
+      document.getElementById('status').innerText = "response sent 💌";
+    }
+
+    function loadGrievance() {
+      const g = localStorage.getItem("grievance");
+      document.getElementById('grievanceText').innerHTML = "<strong>current grievance:</strong><br>" + (g || "nothing here yet");
+    }
+
+    function createStars(count) {
+      const container = document.getElementById('stars');
+      for (let i = 0; i < count; i++) {
+        let star = document.createElement('div');
+        star.className = 'star';
+        let size = Math.random() * 2 + 1 + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        container.appendChild(star);
+      }
+    }
+
+    loadGrievance();
+    createStars(150);
+  </script>
+</body>
+</html>
